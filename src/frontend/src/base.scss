@@ -1,0 +1,15 @@
+@import './lib.scss';
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  scroll-behavior: smooth !important;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}

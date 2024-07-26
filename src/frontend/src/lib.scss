@@ -1,0 +1,303 @@
+@import './zindex.scss';
+
+// Breakpoints
+$b-sm: 767px;
+$b-md: 1024px;
+$b-lg: 1440px;
+$b-xl: 1920px;
+
+//colours
+$dark-purple: #292369;
+$darker-purple: #151236;
+$purple: #524fa1;
+$dark-teal: #004f6c;
+$darker-teal: #003042;
+$teal: #00abbc;
+$light-teal: #39c2d8;
+$teal-tint: #d7eef0;
+$faint-teal: #f0fafb;
+$grey: #4d4d55;
+$light-grey: #f7f7f7;
+$dark-grey: #00383d;
+$white: #ffffff;
+$error: #d74700;
+$warning: #d7ab00;
+
+//fonts
+$font-light: 'Brown-light', sans-serif;
+$font-regular: 'Brown-regular', sans-serif;
+$font-bold: 'Brown-bold', sans-serif;
+
+//MIXINS:
+
+@mixin container {
+  max-width: 1128px;
+  margin: 0 auto;
+  padding: 0 0.75rem;
+
+  @media screen and (min-width: $b-lg) {
+    padding: 0;
+  }
+}
+
+@mixin grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.5rem;
+
+  @media screen and (min-width: $b-sm) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media screen and (min-width: $b-md) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+@mixin body {
+  font-family: $font-regular;
+  font-size: 1.125rem;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1.33;
+  letter-spacing: -0.25px;
+  color: $grey;
+}
+
+//links
+@mixin link {
+  color: $dark-teal;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin secondaryLink {
+  color: $dark-teal;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin linkWhite {
+  color: $white;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin linkWithAnimation($color: $white) {
+  margin-top: 1rem;
+  color: $dark-teal;
+  text-decoration: none;
+  position: relative;
+  width: 100%;
+
+  @media screen and (min-width: $b-md) {
+    width: unset;
+  }
+
+  &:after {
+    content: '';
+    width: 50px;
+    height: 10px;
+    display: inline-block;
+    position: absolute;
+    background-color: $color;
+    top: 0.3rem;
+    margin-left: 1rem;
+    visibility: hidden;
+    animation: mouseOut 0.2s;
+  }
+
+  &:before {
+    content: '';
+    width: 98px;
+    height: 15px;
+    position: absolute;
+    display: block;
+    top: 0.3rem;
+    background: url("data:image/svg+xml,%3Csvg width='93px' height='9px' viewBox='0 0 93 9' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3ECombined Shape%3C/title%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cpath d='M88.7573593,-2.50466314e-13 L93,4.24264069 L88.7573593,8.48528137 L87.3431458,7.07106781 L89.1713593,5.242 L0.757359313,5.24264069 L0.757359313,3.24264069 L89.1713593,3.242 L87.3431458,1.41421356 L88.7573593,-2.50466314e-13 Z' id='Combined-Shape' fill='%23004F6C'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") no-repeat center;
+    right: 0;
+
+    @media screen and (min-width: $b-md) {
+      right: -7.2rem;
+    }
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    &:after {
+      @media screen and (min-width: $b-sm) {
+        animation: mouseIn 0.2s linear;
+      }
+    }
+  }
+
+  @keyframes mouseIn {
+    0% {
+      transform: translateX(-10px);
+      visibility: hidden;
+    }
+
+    50% {
+      transform: translateX(20px);
+      visibility: visible;
+    }
+
+    100% {
+      transform: translateX(55px);
+      visibility: hidden;
+    }
+  }
+
+  @keyframes mouseOut {
+    0% {
+      transform: translateX(55px);
+      visibility: hidden;
+    }
+
+    50% {
+      transform: translateX(20px);
+      visibility: visible;
+    }
+
+    100% {
+      transform: translateX(-10px);
+      visibility: hidden;
+    }
+  }
+}
+
+//buttons
+@mixin buttonPrimary {
+  text-decoration: none;
+  color: $dark-grey;
+  border: none;
+  background-color: $light-teal;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background-color: $teal;
+  }
+
+  @media screen and (min-width: $b-md) {
+    padding: 0.75rem;
+  }
+}
+
+@mixin selectionButtonWhite {
+  @include buttonPrimary;
+  background: $white;
+  border: 1px solid $dark-teal;
+  color: $dark-teal;
+
+  &:hover {
+    background: $teal-tint;
+  }
+}
+
+@mixin selectionButtonDark {
+  @include buttonPrimary;
+  background: $purple;
+  color: $white;
+
+  &:hover {
+    background: $dark-purple;
+  }
+}
+
+//headings
+@mixin h1 {
+  font-family: $font-light;
+  line-height: 1.16;
+  letter-spacing: -1px;
+  font-size: 2.37rem;
+
+  @media screen and (min-width: $b-md) {
+    font-size: 3.375rem;
+    line-height: 1.11;
+    letter-spacing: -1.13px;
+  }
+}
+
+@mixin h2 {
+  font-size: 2rem;
+  font-family: $font-regular;
+  line-height: 1.25;
+  letter-spacing: -1px;
+
+  @media screen and (min-width: $b-md) {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.75px;
+  }
+}
+
+@mixin h3 {
+  font-size: 1.75rem;
+  font-family: $font-regular;
+  line-height: 1.29;
+  letter-spacing: -0.5px;
+
+  @media screen and (min-width: $b-md) {
+    font-size: 2rem;
+    line-height: 1.125;
+    letter-spacing: -0.83px;
+  }
+}
+
+@mixin h4 {
+  font-size: 1.5rem;
+  font-family: $font-regular;
+  line-height: 1.17;
+  letter-spacing: -0.5px;
+
+  @media screen and (min-width: $b-md) {
+    font-size: 1.75rem;
+    line-height: 1.14;
+    letter-spacing: -0.75px;
+  }
+}
+
+@mixin h5 {
+  font-size: 1.375rem;
+  font-family: $font-regular;
+  line-height: 1.18;
+  letter-spacing: -0.5px;
+
+  @media screen and (min-width: $b-md) {
+    font-size: 1.5rem;
+    line-height: 1.17;
+    letter-spacing: -0.5px;
+  }
+}
+
+@mixin h6 {
+  font-size: 1.25rem;
+  font-family: $font-bold;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+
+  @media screen and (min-width: $b-md) {
+    line-height: 1.2;
+    letter-spacing: -0.25px;
+  }
+}
+
+@mixin line {
+  height: 1px;
+  width: 100%;
+  background-color: $grey;
+  padding: 0;
+  margin: 0;
+  opacity: 20%;
+}

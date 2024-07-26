@@ -1,0 +1,118 @@
+@import "../../lib.scss";
+
+.my-footer {
+  background: $darker-purple;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+
+  @media screen and (min-width: $b-sm) {
+    padding: 1.5rem 0;
+  }
+
+  h2 {
+    margin-top: 1.5rem;
+    @media screen and (min-width: $b-sm) {
+      margin-top: 2rem;
+    }
+  }
+
+  &__container {
+    a {
+      @include linkWhite;
+    }
+
+    h2 {
+      @include h6;
+    }
+
+    ul {
+      margin-top: 0.75rem;
+      @media screen and (min-width: $b-sm) {
+        margin-top: 1rem;
+      }
+    }
+
+    color: $white;
+    @include container;
+    @include grid;
+    line-height: 1.8;
+    letter-spacing: -0.25px;
+    grid-template-areas: 'address address'
+    'social social'
+    'links links';
+
+    @media screen and (min-width: $b-sm) {
+      grid-template-areas: 'address address links links social social';
+    }
+
+    @media screen and (min-width: $b-md) {
+      grid-template-areas: 'address address address address links links links links social social social social';
+
+    }
+  }
+
+  &__address {
+    grid-area: address;
+
+    p {
+      margin-top: 0.75rem;
+      @media screen and (min-width: $b-sm) {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &__links {
+    grid-area: links;
+  }
+
+  &__social {
+    grid-area: social;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    li {
+      background-color: $white;
+      border-radius: 50%;
+      width: 2.75rem;
+      height: 2.75rem;
+
+      &:hover {
+        background: $purple;
+        path:nth-child(2) {
+          fill: white;
+        }
+      }
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    width: 100%;
+    display: inline-block;
+    opacity: 0.2;
+    background: $purple;
+    margin-top: 1.5rem;
+
+    @media screen and (min-width: $b-sm) {
+      margin-top: 3.5rem;
+    }
+  }
+
+  &__copyright {
+    text-align: center;
+    color: $white;
+    font-size: 0.87rem;
+    opacity: 0.7;
+    letter-spacing: -0.19px;
+    margin: 0.55rem 0.75rem 0;
+
+    @media screen and (min-width: $b-md) {
+      margin-top: 1.05rem;
+    }
+  }
+}

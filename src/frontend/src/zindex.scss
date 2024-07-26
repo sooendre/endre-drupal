@@ -1,0 +1,14 @@
+$zIndexes: (
+  hero: 5,
+  image_gallery_controls: 10,
+  nav_dropdown: 10,
+  header: 15,
+  sticky_event_detail: 20,
+  featured_tag: 1,
+  share_events: 99,
+);
+
+
+@function z($listKey) {
+  @return map-get($zIndexes, $listKey);
+}

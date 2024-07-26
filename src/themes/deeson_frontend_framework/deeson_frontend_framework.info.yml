@@ -1,0 +1,15 @@
+name: Deeson Frontend Framework
+type: theme
+description: A base theme implementing Deeson's frontend framework.
+
+core_version_requirement: ^9 || ^10
+base theme: stable
+hidden: true
+
+components:
+  namespaces:
+    components:
+      - assets/components
+
+libraries:
+  - deeson_frontend_framework/base

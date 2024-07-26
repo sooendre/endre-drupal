@@ -1,0 +1,77 @@
+clone:
+  depth: full
+
+definitions:
+  caches:
+    drush: ~/.drush/cache
+    node: src/frontend/node_modules
+  steps:
+    - step: &bootstrap
+        name: Bootstrap
+        image: deeson/deployer
+        script:
+          - make pipelines-bootstrap
+        artifacts:
+          - 'scripts/make/**'
+    - step: &drupal
+        name: Build Drupal
+        image: composer:2
+        caches:
+          - composer
+          - drush
+        script:
+          - composer --version && composer install --ignore-platform-reqs
+          - ln -s docroot web 
+        artifacts:
+          - 'docroot/**'
+          - 'vendor/**'
+          - 'web'
+    - step: &frontend
+        name: Build Front-End
+        image:
+          name: deeson/fe-node
+          run-as-user: 1000
+        caches:
+          - node
+        script:
+          - cd src/frontend && yarn && yarn build
+        artifacts:
+          - 'src/frontend/assets/**'
+          - 'src/frontend/node_modules/**'
+    - step: &test
+        name: Test Build
+        image: wodby/drupal-php:7.1-2.4.3
+        script:
+          - make pipelines-test-standards
+    - step: &deploy
+        name: Relay
+        image: deeson/deployer:snapshot-fix
+        script:
+          - /opt/ci-tools/deployer.sh
+
+pipelines:
+  branches:
+    master:
+      - parallel:
+        - step: *drupal
+        - step: *frontend
+        - step: *test
+      - step: *deploy
+    develop:
+      - parallel:
+        - step: *drupal
+        - step: *frontend
+      - step: *deploy
+    UAT:
+      - parallel:
+        - step: *drupal
+        - step: *frontend
+        - step: *test
+      - step: *deploy
+  tags:
+    '*':
+      - parallel:
+        - step: *drupal
+        - step: *frontend
+        - step: *test
+      - step: *deploy

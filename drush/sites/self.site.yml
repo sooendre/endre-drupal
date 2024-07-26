@@ -1,0 +1,11 @@
+docker:
+  paths:
+    drush-script: /app/vendor/bin/drush
+  root: /app/docroot
+  uri: ${env.D4D_HOSTNAME}
+
+pipelines:
+  paths:
+    drush-script: /opt/atlassian/pipelines/agent/build/vendor/bin/drush
+  root: /opt/atlassian/pipelines/agent/build/docroot
+  uri: localhost

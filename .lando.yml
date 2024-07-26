@@ -1,0 +1,140 @@
+name: endre-drupal
+recipe: drupal9
+env_file:
+  - .env
+
+config:
+  webroot: docroot
+  php: '8.1'
+  composer_version: '2'
+  config:
+    php: _lando/php.ini
+
+proxy:
+  mailhog:
+    - mailhog.endre-drupal.lndo.site
+  fe-node:
+    - frontend.endre-drupal.lndo.site
+  phpmyadmin:
+    - phpmyadmin.endre-drupal.lndo.site
+  solr:
+    - solr.endre-drupal.lndo.site:8983
+
+services:
+  appserver:
+    xdebug: true
+    build_as_root:
+      - rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
+    build:
+      - composer install
+    overrides:
+      environment:
+        DRUSH_OPTIONS_ROOT: '/app/docroot'
+        DRUSH_OPTIONS_URI: 'https://endre-drupal.lndo.site'
+        # Support debugging CLI with XDEBUG.
+        PHP_IDE_CONFIG: 'serverName=drupal'
+        XDEBUG_SESSION_START: lando
+
+  database:
+    creds:
+      user: drupal
+      password: drupal
+      database: drupal
+
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+    portforward: true
+
+  redis:
+    type: 'redis:4'
+
+  fe-node:
+    type: 'node:custom'
+    app_mount: disabled
+    overrides:
+      image: deeson/fe-node:v12
+      volumes:
+        - ./src/frontend:/app:delegated
+      working_dir: /app
+      environment:
+        DOCKER_LOCAL: 1
+      command: bash -c 'yarn install && yarn start'
+
+  fe-php:
+    type: 'php:custom'
+    app_mount: disabled
+    overrides:
+      image: deeson/fe-php
+      depends_on:
+        - 'fe-node'
+      volumes:
+        - ./src/frontend:/app:delegated
+      working_dir: /app
+      environment:
+        DOCKER_LOCAL: 1
+      command: bash -c 'composer install && node_modules/.bin/deeson-router-start.sh'
+
+  phpmyadmin:
+    type: phpmyadmin
+
+  solr:
+    type: solr:8
+    core: main
+    portforward: true
+    config:
+      dir: 'docroot/modules/contrib/search_api_solr/jump-start/solr8/config-set'
+
+tooling:
+  drush:
+    service: appserver
+    cmd: '/app/vendor/bin/drush --root=/app/docroot'
+
+  lint:standards:
+    service: appserver
+    description: Run phpcs Drupal Coding Standards against modules and themes.
+    cmd: '/app/vendor/bin/phpcs --standard=Drupal,DrupalPractice --extensions=php,inc,module,theme --exclude=Drupal.Commenting.DocComment,Drupal.Commenting.ClassComment --ignore=src/modules/entity_class_bundles_demo,src/themes/deeson_frontend_framework,src/themes/*/assets /app/src/modules/ /app/src/themes/'
+
+  lint:deprecated:
+    service: appserver
+    description: Run phpstan deprecated checks against modules and themes.
+    cmd: '/app/vendor/bin/phpstan analyse -c /app/phpstan.neon /app/src/modules/ /app/src/themes/'
+
+  lint:php:
+    service: appserver
+    description: Run phpcs PHPCompatibility checks against a given file or directory.
+    cmd: /app/vendor/bin/phpcs --standard=PHPCompatibility --extensions=php,inc,module,theme --runtime-set testVersion 8.0 --ignore=src/modules/entity_class_bundles_demo,src/themes/deeson_frontend_framework,src/themes/*/assets /app/src/modules/ /app/src/themes/
+
+  xdebug:on:
+    service: appserver
+    description: Enable xdebug for apache.
+    cmd: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && docker-php-ext-enable xdebug && /etc/init.d/apache2 reload && echo "Xdebug enabled"
+    user: root
+
+  xdebug:off:
+    service: appserver
+    description: Disable xdebug for apache.
+    cmd: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload && echo "Xdebug disabled"
+    user: root
+
+  node:
+    service: fe-node
+
+  npm:
+    service: fe-node
+
+  yarn:
+    service: fe-node
+
+  phpcs:
+    service: appserver
+    cmd: '/app/vendor/bin/phpcs'
+
+  phpcbf:
+    service: appserver
+    cmd: '/app/vendor/bin/phpcbf'
+
+  phpstan:
+    service: appserver
+    cmd: '/app/vendor/bin/phpstan'

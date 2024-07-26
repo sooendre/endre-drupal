@@ -1,0 +1,6 @@
+name: Nature Parks theme
+type: theme
+description: Main theme for the Nature Parks website.
+
+core_version_requirement: ^9 || ^10
+base theme: deeson_frontend_framework

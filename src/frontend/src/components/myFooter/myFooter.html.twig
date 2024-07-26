@@ -1,0 +1,134 @@
+{#
+variables:
+- address: renderable drupal menu
+- links: renderable drupal menu
+- social: renderable
+
+example:
+    {% include '@components/myFooter/myFooter.html.twig' with {
+       content: {
+        address: [
+          {name: 'Nature Parks', address: 'Address'},
+          {name: 'Nature Parks', address: 'Address'}
+          ],
+        links: [
+          {label: 'News', url: 'http://example.com'},
+          {label: 'About', url: 'http://example.com'},
+          {label: 'Prints', url: 'http://example.com'},
+          ],
+        social: {
+          instagram: 'http://instagram.com',
+          facebook: 'http://instagram.com',
+          twitter: 'http://instagram.com',
+          linkedin: 'http://instagram.com',
+          youtube: 'http://instagram.com',
+       },
+        copyright: '© 2023 Nature Parks'
+      }
+    }%}
+#}
+<footer class="my-footer">
+  <div class="my-footer__container">
+    <div class="my-footer__address">
+      {% for item in content.address %}
+      {% if item %}
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.address | nl2br }}</p>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="my-footer__links">
+      <h2>Useful links</h2>
+      <ul>
+        {% for link in content.links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="my-footer__social">
+      <h2>Follow us</h2>
+      <ul>
+        {% if content.social.instagram %}
+        <li class="my-footer__social--instagram">
+          <a aria-label="Instagram" href="{{ content.social.instagram }}">
+            <svg width="44" height="44">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M0 0h44v44H0z" />
+                <path
+                  d="M26.48 12A5.526 5.526 0 0 1 32 17.52v8.96A5.526 5.526 0 0 1 26.48 32h-8.96A5.525 5.525 0 0 1 12 26.48v-8.96A5.526 5.526 0 0 1 17.52 12zm0 1.774h-8.96a3.749 3.749 0 0 0-3.746 3.745v8.962a3.749 3.749 0 0 0 3.745 3.745h8.962a3.75 3.75 0 0 0 3.745-3.745v-8.962a3.75 3.75 0 0 0-3.745-3.745zM22 16.847A5.16 5.16 0 0 1 27.153 22 5.16 5.16 0 0 1 22 27.153 5.16 5.16 0 0 1 16.847 22 5.16 5.16 0 0 1 22 16.847zm0 1.774a3.383 3.383 0 0 0-3.379 3.38A3.383 3.383 0 0 0 22 25.378 3.383 3.383 0 0 0 25.379 22 3.383 3.383 0 0 0 22 18.621zm5.37-3.279a1.303 1.303 0 0 1 0 2.603c-.342 0-.678-.14-.92-.381a1.312 1.312 0 0 1-.382-.92 1.306 1.306 0 0 1 1.301-1.301z"
+                  fill="#292369" />
+              </g>
+            </svg>
+            <span class="screen-reader">Instagram</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if content.social.facebook %}
+        <li class="my-footer__social--facebook">
+          <a aria-label="Facebook" href="{{ content.social.facebook }}">
+            <svg width="44" height="44">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M0 0h44v44H0z" />
+                <path
+                  d="M20.128 32.375v-9.294H17v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h-3.741z"
+                  fill="#292369" />
+              </g>
+            </svg>
+            <span class="screen-reader">Facebook</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if content.social.twitter %}
+        <li class="my-footer__social--twitter">
+          <a aria-label="Twitter" href="{{ content.social.twitter }}">
+            <svg width="44" height="44">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M0 0h44v44H0z" />
+                <path
+                  d="M33 16.924a8.192 8.192 0 0 1-2.357.646 4.11 4.11 0 0 0 1.804-2.27 8.22 8.22 0 0 1-2.605.996A4.096 4.096 0 0 0 26.847 15c-2.65 0-4.596 2.472-3.998 5.038a11.648 11.648 0 0 1-8.457-4.287 4.109 4.109 0 0 0 1.27 5.478 4.086 4.086 0 0 1-1.858-.513c-.045 1.9 1.318 3.679 3.291 4.075a4.113 4.113 0 0 1-1.853.07 4.106 4.106 0 0 0 3.833 2.849A8.25 8.25 0 0 1 13 29.41a11.616 11.616 0 0 0 6.29 1.843c7.618 0 11.922-6.434 11.663-12.205A8.354 8.354 0 0 0 33 16.924z"
+                  fill="#292369" />
+              </g>
+            </svg>
+            <span class="screen-reader">Twitter</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if content.social.linkedin %}
+        <li class="my-footer__social--linkedIn">
+          <a aria-label="LinkedIn" href="{{ content.social.linkedin }}">
+            <svg width="44" height="44">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M0 0h44v44H0z" />
+                <path
+                  d="M17.262 31.716h-3.934V17.29h3.934zm-1.967-16.089A2.305 2.305 0 0 1 13 13.313 2.305 2.305 0 0 1 15.295 11a2.305 2.305 0 0 1 2.295 2.313 2.304 2.304 0 0 1-2.295 2.314zM33 31.716h-3.934v-7.35c0-4.416-5.246-4.082-5.246 0v7.35h-3.935V17.29h3.935v2.315c1.83-3.392 9.18-3.642 9.18 3.247v8.864z"
+                  fill="#292369" />
+              </g>
+            </svg>
+            <span class="screen-reader">LinkedIn</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if content.social.youtube %}
+        <li class="my-footer__social--youtube">
+          <a aria-label="Youtube" href="{{ content.social.youtube }}">
+            <svg width="44" height="44">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M0 0h44v44H0z" />
+                <path fill="#292369" d="M16 30.313v-16L32 22.3l-16 8.014z" />
+              </g>
+            </svg>
+            <span class="screen-reader">Youtube</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+
+  </div>
+  <span class="my-footer__divider"></span>
+  <div class="my-footer__copyright">
+    {{ content.copyright }}
+  </div>
+</footer>
