@@ -1,14 +1,15 @@
 _core:
   default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
 langcode: en
-uuid: 69f9504b-0548-4d41-afdd-d02f4d2d76da
-name: 'Nature Parks'
-mail: keren.fabris-rotelli@tpximpact.com
+uuid: 67d0a27f-f4f6-4f0c-8f3c-37cbdf638632
+name: 'Endre test'
+mail: endre.soo@tpximpact.com
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /node/1
+  front: /node
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: en
+mail_notification: null

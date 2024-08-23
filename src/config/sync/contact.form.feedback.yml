@@ -1,4 +1,4 @@
-uuid: 43afa613-824b-4799-ac98-b493ad2391b5
+uuid: 148514d7-cc8e-4aff-817b-7c3df39b70c6
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - keren.fabris-rotelli@tpximpact.com
+  - endre.soo@tpximpact.com
 reply: ''
 weight: 0
 message: 'Your message has been sent.'

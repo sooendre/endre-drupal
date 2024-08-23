@@ -1,4 +1,4 @@
-uuid: 11d0ab01-3727-4d22-b4d0-92e113d41726
+uuid: a81b1bce-bb34-4e36-9b30-d58e17e966aa
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +8,12 @@ name: 'Restricted HTML'
 format: restricted_html
 weight: 1
 filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
   filter_html:
     id: filter_html
     provider: filter
@@ -17,12 +23,6 @@ filters:
       allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id>'
       filter_html_help: true
       filter_html_nofollow: false
-  filter_autop:
-    id: filter_autop
-    provider: filter
-    status: true
-    weight: 0
-    settings: {  }
   filter_url:
     id: filter_url
     provider: filter

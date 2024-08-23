@@ -1,4 +1,4 @@
-uuid: 9039d0fe-9649-47ee-9066-fdab0f9ac73a
+uuid: bb2bb527-4049-45fd-9762-02ee900444c7
 langcode: en
 status: true
 dependencies:
@@ -10,6 +10,7 @@ dependencies:
     - comment
     - contextual
     - file
+    - help
     - node
     - path
     - system
@@ -27,6 +28,7 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
@@ -36,6 +38,7 @@ permissions:
   - 'create url aliases'
   - 'delete article revisions'
   - 'delete own article content'
+  - 'delete own files'
   - 'delete own page content'
   - 'delete page revisions'
   - 'edit own article content'

@@ -1,4 +1,4 @@
-uuid: 6f07e539-5575-4cfe-98b5-f43b6194bede
+uuid: ae706b54-65b8-40d9-baf0-08d4bede6ee6
 langcode: en
 status: true
 dependencies: {  }
@@ -8,6 +8,12 @@ name: 'Plain text'
 format: plain_text
 weight: 10
 filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
@@ -21,9 +27,3 @@ filters:
     weight: 0
     settings:
       filter_url_length: 72
-  filter_autop:
-    id: filter_autop
-    provider: filter
-    status: true
-    weight: 0
-    settings: {  }
